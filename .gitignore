@@ -1,0 +1,12 @@
+# Terraform
+.terraform/
+*.tfstate
+*.tfstate.*
+*.backup
+*.log
+crash.log
+terraform.tfvars
+*.zip
+
+# General
+.DS_Store
