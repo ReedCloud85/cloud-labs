@@ -34,7 +34,6 @@ access
 Module Inputs:
 Variable                | Description                         | Example
 ------------------------|-------------------------------------|-------------------------
------
 ami_id                  | AMI ID for EC2                      | "ami-05df0ea761147eda6"
 instance_type           | EC2 instance type                   | "t2.micro"
 key_pair                | Name of the EC2 key pair            | "linuxlabs"
