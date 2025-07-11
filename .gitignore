@@ -1,12 +1,10 @@
-# Terraform
+# ~/cloud-labs/.gitignore
+
 .terraform/
 *.tfstate
 *.tfstate.*
-*.backup
-*.log
+*.tfvars
 crash.log
-terraform.tfvars
 *.zip
+*.pem
 
-# General
-.DS_Store

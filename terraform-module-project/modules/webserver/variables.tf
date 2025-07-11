@@ -22,3 +22,8 @@ variable "instance_profile_name" {
   description = "The name of the IAM instance profile to attach to the EC2 instance"
   type        = string
 }
+
+variable "bucket_name" {
+  description = "Globally unique S3 bucket name"
+  type        = string
+}

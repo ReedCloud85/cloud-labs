@@ -11,8 +11,14 @@ provider "aws" {
   region  = "us-east-2"
 }
 
-data "aws_vpc" "default" {
-  default = true
+module "webserver" {
+  source = "./modules/webserver"
+  ami_id = "ami-05df0ea761147eda6"
+  instance_type = "t2.micro"
+  key_pair = "linuxlabs"
+  bucket_name = "modulebucket710"
+  name = "Web_1"
+  instance_profile_name = aws_iam_instance_profile.ec2_profile.name
 }
 
 resource "aws_iam_role" "s3readwrite" {
@@ -61,48 +67,8 @@ resource "aws_iam_instance_profile" "ec2_profile" {
   role = aws_iam_role.s3readwrite.name
 }
 
-resource "aws_security_group" "sg_ssh" {
-  name        = "terraform-ssh-sg"
-  description = "Allow inbound SSH"
-  vpc_id      = data.aws_vpc.default.id
-  ingress {
-    from_port    = 22
-    to_port      = 22
-    protocol     = "tcp"
-    cidr_blocks = ["<Personal Public IP>/32"]
-  }
-
-  egress {
-    from_port    = 0
-    to_port      = 0
-    protocol     = "-1"
-    cidr_blocks  = ["0.0.0.0/0"]
-  }
-}
-
-resource "aws_instance" "test_server" {
-  ami                     = "ami-05df0ea761147eda6"
-  instance_type           = "t2.micro"
-  vpc_security_group_ids = [aws_security_group.sg_ssh.id]
-  key_name                = "linuxlabs"
-  iam_instance_profile    = aws_iam_instance_profile.ec2_profile.name
-
-  tags = {
-    Name = var.instance_name
-  }
-}
-
-resource "aws_s3_bucket" "test_bucket" {
-  bucket = var.bucket_name
-
-  tags = {
-    Name = "terraform-proj-628"
-    Environment = "DevOpsTest"
-  }
-}
-
 resource "aws_s3_bucket_versioning" "s3_version" {
-  bucket = aws_s3_bucket.test_bucket.bucket
+  bucket = "modulebucket710"
 
   versioning_configuration {
     status = "Enabled"

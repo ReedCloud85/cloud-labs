@@ -12,7 +12,7 @@ resource "aws_security_group" "sg_web" {
     from_port   = 22
     to_port     = 22
     protocol    = "tcp"
-    cidr_blocks = ["<Public IP>/32"]
+    cidr_blocks = ["76.97.66.236/32"]
   }
 
   ingress {
@@ -39,5 +39,15 @@ resource "aws_instance" "web" {
   iam_instance_profile = var.instance_profile_name
   tags = {
     Name = var.name
+  }
+}
+
+# S3 Bucket
+resource "aws_s3_bucket" "test_bucket" {
+  bucket = var.bucket_name
+
+  tags = {
+    Name = "terraform-proj-628"
+    Environment = "DevOpsTest"
   }
 }
