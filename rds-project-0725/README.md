@@ -1,4 +1,4 @@
-# Terraform WordPress on AWS
+# Terraform WordPress on AWS (RDS + EC2 Project)
 
 This project uses Terraform to provision a WordPress website on AWS using:
 
